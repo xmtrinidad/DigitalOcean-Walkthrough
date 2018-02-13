@@ -244,6 +244,57 @@ MySQL is now setup and ready to be used with your PHP project.  You can test tha
 
 ## Connect to MySQL using an SSH Client
 
+Now that MySQL is set up on your VPS, you can use it with your project.  If you're like me and developed locally using something like XAMPP or MAMP, you may be used to using something like phpMyAdmin for working with your MySQL databases.  For this section I will be using [HeidiSQL](https://www.heidisql.com/).  If you're on Mac [Sequel Pro](https://www.sequelpro.com/) is a popular option with a similar set-up process for connecting through SSH.
+
+*If you want to use phpMyAdmin, check out this [tutorial](https://www.youtube.com/watch?v=4GjC2Qc82U0&index=6&list=PLfdtiltiRHWFuRwcp93nixCyT7zhHWUi1).  It should point you in the right direction.  When I learn how to set it up, I will update this readme on how to use it*
+
+After downloading, installing and opening HeidiSQL, you'll be asked to enter your MySQL information.  By default, **Network type** is set to *MySQL TCP/IP*.  Again, we're using SSH to connect to our VPS, so change this to *MySQL (SSH Tunnel)*
+
+![Heidi SQL SSH](img/heidi_ssh.png)
+
+Then continue to enter the following information from your MySQL configuration you setup in the previous section:
+
+* **Hostname**: localhost
+* **User**: root
+* **Password**: *YOUR_MYSQL_PASSWORD*
+
+The **Port** number will remain the same (3306) and **Databases** can remain empty.
+
+Setting up the SSH tunnel is similar to how you did it in previous sections, but HeidiSQL requires a **plink.exe** file, which you can get when downloading [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/)
+
+*See this [stack overflow post](https://stackoverflow.com/questions/10940733/putty-vs-winscp) for more information about the difference between PuTTY and WinSCP*
+
+After downloading PuTTY, navigate to the **plink.exe** file within your PuTTY folder and enter its location as the *plink.exe location*
+
+![plink location](img/plink_location.png)
+
+Then enter the following information:
+
+* **SSH host + port**: *YOUR_DROPLET_IP* (keep port at 0)
+* **Username**: root
+
+For your **Private key file** use the same *id_rsa.ppk* file you used when connecting via SSH in the [Connect via SFTP and WinSCP](#connect-via-sftp-and-winscp) section.
+
+**Localport** will remain at its default, 3307
+
+Here is a summary of what the **Settings** and **SSH Tunnel** configurations look like for my project:
+
+**Settings**        
+![settings summary](img/settings_summary.png)
+
+**SSH Tunnel**        
+![settings summary](img/ssh_summary.png)
+
+You should now be able to click open and connect to your MySQL Database on your VPS.
+
+
+
+
+
+
+
+
+
 
 
 
