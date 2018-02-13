@@ -34,6 +34,7 @@ In this repo I will document how to upload a local PHP website with a local MySQ
 [Connect to MySQL using an SSH Client](#connect-to-mysql-using-an-ssh-client)      
 [Export local MySQL Database and Import to Your VPS](#export-local-mysql-database-to-your-vps)      
 [Configure Your PHP Database File](#configure-your-php-database-file)      
+[Deployment Conclusion](#deployment-conclusion)      
 
 
 ## What is DigitalOcean
@@ -315,9 +316,50 @@ If you're using XAMPP/MAMP for local development, the following steps will show 
 
 9.  Press **F5** or click the **Refresh** button to refresh the database.  Your project's database should now be imported.
 
-Now that your database is on your VPS, some configuration needs to be done to your PHP file that connects to your database.
+Now that your database is on your VPS, some configuration needs to be done to your PHP database file to get it to work the same way it did locally.
 
 ## Configure Your PHP Database File
+
+Assuming that your PHP application was fully functional locally, it should work the same once you upload it to your VPS.  The only thing that needs to be changed is the database settings within your PHP code.  Locally, you used different credentials to establish a connection to your local server.  When you created your Droplet/VPS, you set up different credentials for accessing your MySQL database.
+
+Below is an example of what my local database configuration looks like:
+
+```php
+$dbServername = "localhost";
+$dbUsername = "root";
+$dbPassword = "*************"; // password hidden
+$dbName = "noteapp";
+
+$mysqli = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
+```
+
+*My project is using mysqli.  Your project might be using PDO so the configuration will be different.*
+
+The two things that need to be changed is the database password and, if you named your database something different after importing it, the database name.  The following steps will perform this for you:
+
+1.  Open WinSCP (or whatever file transfer client you're using) and connect to your VPS
+
+2.  Navigate to /var/www/YOUR_APPLICATION; the file location where you uploaded your files in the [Uploading The PHP Site](#uploading-the-php-site) section.
+
+3.  Locate the file where you make your database connection, right click it and choose **Edit**
+
+4.  Replace your database password with the password you created when configuring MySQL on your VPS
+
+5.  Change the database name if you renamed your database something different after it was imported
+
+6.  Save the changes then go to your site and ensure your database is working
+
+
+## Deployment Conclusion
+
+At this point, your PHP application should be fully configured.  All files should be uploaded and the database should be connected.  Everything should be working the same way it worked locally.  If this is a demo application to show to others, you can ignore the next sections.
+
+If you want to learn how to add a domain name and configure it on DigitalOcean, continue on with this readme
+
+
+---
+
+
 
 
 
