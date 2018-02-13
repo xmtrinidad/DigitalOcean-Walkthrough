@@ -32,6 +32,8 @@ In this repo I will document how to upload a local PHP website with a local MySQ
 [Uploading the PHP Site](#uploading-the-php-site)      
 [Setup MySQL](#setup-mysql)      
 [Connect to MySQL using an SSH Client](#connect-to-mysql-using-an-ssh-client)      
+[Export local MySQL Database and Import to Your VPS](#export-local-mysql-database-to-your-vps)      
+[Configure Your PHP Database File](#configure-your-php-database-file)      
 
 
 ## What is DigitalOcean
@@ -286,6 +288,38 @@ Here is a summary of what the **Settings** and **SSH Tunnel** configurations loo
 ![settings summary](img/ssh_summary.png)
 
 You should now be able to click open and connect to your MySQL Database on your VPS.
+
+## Export local MySQL Database and Import to Your VPS
+
+If you're using XAMPP/MAMP for local development, the following steps will show you how to export your project's database and import it into your VPS using HeidiSQL:
+
+1.  Open XAMPP/MAMP and start the Apache and MySQL servers.
+
+2.  Open your web browser and navigate to **localhost** then click on phpMyAdmin
+
+3.  Ensure you're at the home page (<http://localhost/phpmyadmin/>) then at the top nav bar click on **Export**
+
+    ![export](img/export_db.png)
+
+4.  You don't want to export all of your databases, just the one for your project so we'll have to do a custom export.  **Quick** export is seleted by default, choose **Custom** to display more options.
+
+5.  By default, all databases are selected for export in the **Databases** option. Select only the database you are using with your project.
+
+    ![export](img/custom_db_export.png)
+
+6.  All other configurations can stay at their defaults.  Scroll down to the bottom and click **Go** and save the SQL file to your preferred location.
+
+7.  Open HeidiSQL (or whatever client you're using) and connect to your VPS
+
+8.  Once you're connect, go to File > **Run SQL File...** and open the file you exported from phpMyAdmin
+
+9.  Press **F5** or click the **Refresh** button to refresh the database.  Your project's database should now be imported.
+
+Now that your database is on your VPS, some configuration needs to be done to your PHP file that connects to your database.
+
+## Configure Your PHP Database File
+
+
 
 
 
