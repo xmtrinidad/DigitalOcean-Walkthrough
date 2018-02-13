@@ -211,7 +211,7 @@ To get the default MySQL password use the following command:
 cat /root/.digitalocean_password
 ```
 
-Something like ```root_mysql_pass="5e6518ad155adbcbed5a0fca7c6c70c8d4ea8f5089853c1a"``` should display.  Copy the password then run the ```mysql_secure_installation``` command and paste the copied password at the prompt (without the quotes).
+Something like ```root_mysql_pass="5e6518ad1fffafafj23j43434234112jjfdsa"``` should display.  Copy the password then run the ```mysql_secure_installation``` command and paste the copied password at the prompt (without the quotes).
 
 If you entered the correct password several prompts will appear:
 
