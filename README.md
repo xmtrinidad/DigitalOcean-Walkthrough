@@ -211,7 +211,7 @@ sudo systemctl reload apache2
 
 1.  Navigate to ```/var/www/``` and create the directory you associated with DocumentRoot from the previous section.  My file is called *phpnote* so the directory my files will go in will be at ```/var/www/phpnote```
 
-2.  From your local directory, navigate to the location of your application files that you want to upload.  Copy the contents within your application folder and paste them into the empty directory located on your server.
+2.  From your **local directory**, navigate to the location of your application files that you want to upload.  Copy the contents within your application folder and paste them into the empty directory located on your server.
 
     *You could also copy and paste the entire application folder, but you'll have to go back a directory, paste the folder and rename it to whatever you changed the DocumentRoot to*
 
@@ -221,22 +221,21 @@ sudo systemctl reload apache2
 
 ## Setup MySQL
 
-When you installed the LAMP stack when first initializing your Droplet, you installed MySQL but it still needs to be configured on your server.
+If you followed the guide up to this point then your Droplet/VPS should already have MySQL installed, but it still needs to be configured before you can use it with your application.
 
-The Message of the Day displays the following message when logging into your server through SSH:
+The Message of the Day displays the following message when logging into your server:
 ```
 You are encouraged to run 'mysql_secure_installation' to ready your server for
 production.
 ```
+And this is what you should do before doing anything with MySQL but first you need the MySQL password before you can continue with the configuration.
 
-And this is what you should do before doing anything with MySQL on your server, but first you need the password before you can run the command.
-
-To get the default MySQL password use the following command:
+To get the default MySQL password enter the following command into your Terminal:
 ```
 cat /root/.digitalocean_password
 ```
 
-Something like ```root_mysql_pass="5e6518ad1fffafafj23j43434234112jjfdsa"``` should display.  Copy the password then run the ```mysql_secure_installation``` command and paste the copied password at the prompt (without the quotes).
+Something like ```root_mysql_pass="5e6518ad1fffafafj23j43434234112jjfdsa"``` should display.  Copy the password (without the quotes) then run the ```mysql_secure_installation``` command and paste the copied password at the prompt.
 
 If you entered the correct password several prompts will appear:
 
@@ -269,9 +268,9 @@ MySQL is now setup and ready to be used with your PHP project.  You can test tha
 
 ## Connect to MySQL using an SSH Client
 
-Now that MySQL is set up on your VPS, you can use it with your project.  If you're like me and developed locally using something like XAMPP or MAMP, you may be used to using something like phpMyAdmin for working with your MySQL databases.  For this section I will be using [HeidiSQL](https://www.heidisql.com/).  If you're on Mac [Sequel Pro](https://www.sequelpro.com/) is a popular option with a similar set-up process for connecting through SSH.
+Now that MySQL is set up on your VPS, you can use it with your project.  If you're like me and developed locally using something like XAMPP or MAMP, you may be used to using something like phpMyAdmin for working with your MySQL databases.  For this section I will be using [HeidiSQL](https://www.heidisql.com/) instead.  If you're on Mac [Sequel Pro](https://www.sequelpro.com/) is a popular option with a similar set-up process for connecting through SSH.
 
-*If you want to use phpMyAdmin, check out this [tutorial](https://www.youtube.com/watch?v=4GjC2Qc82U0&index=6&list=PLfdtiltiRHWFuRwcp93nixCyT7zhHWUi1).  It should point you in the right direction.  When I learn how to set it up, I will update this readme on how to use it*
+*If you want to use phpMyAdmin, check out this [tutorial](https://www.youtube.com/watch?v=4GjC2Qc82U0&index=6&list=PLfdtiltiRHWFuRwcp93nixCyT7zhHWUi1).  It should point you in the right direction.*
 
 After downloading, installing and opening HeidiSQL, you'll be asked to enter your MySQL information.  By default, **Network type** is set to *MySQL TCP/IP*.  Again, we're using SSH to connect to our VPS, so change this to *MySQL (SSH Tunnel)*
 
@@ -298,7 +297,7 @@ Then enter the following information:
 * **SSH host + port**: *YOUR_DROPLET_IP* (keep port at 0)
 * **Username**: root
 
-For your **Private key file** use the same *id_rsa.ppk* file you used when connecting via SSH in the [Connect via SFTP and WinSCP](#connect-via-sftp-and-winscp) section.
+For your **Private key file** use the same *id_rsa.ppk* file you used when connecting via SSH in the [Transfer files using SFTP](#transfer-files-using-sftp) section.
 
 **Localport** will remain at its default, 3307
 
@@ -334,7 +333,7 @@ If you're using XAMPP/MAMP for local development, the following steps will show 
 
 7.  Open HeidiSQL (or whatever client you're using) and connect to your VPS
 
-8.  Once you're connect, go to File > **Run SQL File...** and open the file you exported from phpMyAdmin
+8.  Once you're connected, go to File > **Run SQL File...** and open the file you exported from phpMyAdmin
 
 9.  Press **F5** or click the **Refresh** button to refresh the database.  Your project's database should now be imported.
 
@@ -376,7 +375,7 @@ The two things that need to be changed is the database password and, if you name
 
 At this point, your PHP application should be fully configured.  All files should be uploaded and the database should be connected.  Everything should be working the same way it worked locally.  If this is a demo application to show to others, you can ignore the next sections.
 
-If you want to learn how to add a domain name and configure it on DigitalOcean, continue on to [Set Up a Hostname]()
+If you want to learn how to add a domain name and configure it on DigitalOcean, continue on to [Set Up a Hostname](https://github.com/xmtrinidad/DigitalOcean-Walkthrough/blob/master/hostname.md)
 
 
 
