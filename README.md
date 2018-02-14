@@ -354,10 +354,8 @@ The two things that need to be changed is the database password and, if you name
 
 At this point, your PHP application should be fully configured.  All files should be uploaded and the database should be connected.  Everything should be working the same way it worked locally.  If this is a demo application to show to others, you can ignore the next sections.
 
-If you want to learn how to add a domain name and configure it on DigitalOcean, continue on with this readme
+If you want to learn how to add a domain name and configure it on DigitalOcean, continue on to [Set Up a Hostname]()
 
-
----
 
 
 
