@@ -1,6 +1,6 @@
 # DigitalOcean-Walkthrough
 
-A tutorial for setting up a local PHP/MySQL application on DigitalOcean 
+A tutorial for turning a local PHP/MySQL application to a live site on DigitalOcean 
 
 **Get Started Here**:  [Uploading a PHP Website](https://github.com/xmtrinidad/DigitalOcean-Walkthrough/blob/master/uploadphpsite.md)
 
