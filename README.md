@@ -2,7 +2,7 @@
 
 A tutorial for setting up a local PHP/MySQL application on DigitalOcean 
 
-**Get Started Here**:  [Uploading a PHP Website]()
+**Get Started Here**:  [Uploading a PHP Website](https://github.com/xmtrinidad/DigitalOcean-Walkthrough/blob/master/uploadphpsite.md)
 
 ---
 
