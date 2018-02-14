@@ -1,12 +1,16 @@
 # Digital Ocean -- Uploading a PHP Website
 
-In this repo I will document how to upload a local PHP website with a local MySQL database to [DigitalOcean](https://www.digitalocean.com/).  Below is a list of tutorials that I found helpful while learning how to use DigitalOcean and website hosting associated concepts.
+In this repo I will document how to upload a local PHP website that uses MySQL to [DigitalOcean](https://www.digitalocean.com/).  
+
+Below is a list of tutorials that I found helpful while learning how to use DigitalOcean:
 
 ### Deployment Guides     
 |   Source   | Link  |
 | ---------- | ----- |
 | Traversy Media | [YouTube](https://www.youtube.com/watch?v=BUasdmczmMw) |
 | Codecourse | [YouTube](https://www.youtube.com/playlist?list=PLfdtiltiRHWFuRwcp93nixCyT7zhHWUi1) |
+
+The following resources are related to cloud computing and networking technologies that are helpful to know about when deploying a website:
 
 ### Concepts   
 |   Concept   | Link  |
@@ -27,7 +31,7 @@ In this repo I will document how to upload a local PHP website with a local MySQ
 [Getting Started: Add Your SSH Keys](#getting-started-add-your-ssh-keys)      
 [Getting Started: Create Your Droplet](#getting-started-create-your-droplet)     
 [Connect To Your VPS](#connect-to-your-vps)      
-[Connect via SFTP and WinSCP](#connect-via-sftp-and-winscp)      
+[Transfer files using SFTP](#transfer-files-using-sftp)      
 [Change Default File Location](#change-default-file-location)      
 [Uploading the PHP Site](#uploading-the-php-site)      
 [Setup MySQL](#setup-mysql)      
@@ -37,7 +41,7 @@ In this repo I will document how to upload a local PHP website with a local MySQ
 [Deployment Conclusion](#deployment-conclusion)      
 
 
-## What is DigitalOcean
+## What is DigitalOcean?
 
 DigitalOcean is a cloud computing platform for hosting websites through a Virtual Private Server (VPS).  In cloud computing terms, DigitalOcean is a Infrastructure as a Service (IaaS), not to be confused with a Platform as a Service (PaaS) ([Is DigitalOcean a IaaS or PaaS](https://www.digitalocean.com/community/questions/is-digitalocean-iaas-or-paas-platform)).
 
@@ -57,7 +61,7 @@ Click create a droplet then do the following:
 
 ![Choose LAMP](img/one-click-apps.png)
 
-3.  Next go down to choose a size.  This is a demo application, so the cheapest $5/mo option will be fine.
+3.  Scroll down to **Choose a size**.  This is a demo application, so the cheapest $5/mo option will be fine.
 
 4.  The next option to configure is **Choose a datacenter region**.  I chose the one closest to my location.
 
@@ -69,15 +73,15 @@ Before creating the Droplet, it's recommended to add a SSH key.  SSH revolves ar
 
 Below, I will outline the steps for creating an SSH Key to use with Digital Ocean, but there is a much more comprehensive guide found on Digital Ocean:  [How to Use SSH Keys with DigitalOcean Droplets](https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets)
 
-Keep in mind, I am using Git Bash on a Windows machine so the command for generating an SSH key may not work using Windows PowerShell or CMD and file names may be different.
+Keep in mind, I am using Git Bash on a Windows machine so the command for generating an SSH key may not work using Windows PowerShell or CMD.
 
 1.  Open Git Bash and enter the following command: ```ssh-keygen -t rsa```
 
 2.  You will be prompted for a file location to save your key, by default the file will be saved at ```/c/Users/*YOUR NAME*/.ssh/``` (This may be a different location on your machine, view the message in your Terminal to get the exact file location)
 
-3.  The next promp will ask for a passphrase.  Enter a passphrase if you'd like or hit enter twice to continue without entering one.  Your SSH Key has been created, navigate to the .ssh folder mentioned in the previous step and open the **id_rsa PUB file**.  Select everything in the id_rsa.pub file and copy it.
+3.  The next promp will ask for a passphrase.  Enter a passphrase if you'd like or hit enter twice to continue without entering one.  Your SSH Key has been created, navigate to the .ssh folder mentioned in the previous step and open the **id_rsa PUB file**.  Select everything in this file and copy it.
 
-    *Note that when creating an SSH key pair, two files will be created.  One file will be id_rsa without a file extension and another file id_rsa with a **.PUB** extension.  **The id_rsa with a .PUB extension is your public key and the one you will use on Digital Ocean.**  The other id_rsa file is your private key and should be kept private.*
+    *Note that when creating an SSH key pair, two files will be created.  One file will be id_rsa without a file extension and another file id_rsa with a **.PUB** extension.  **The id_rsa with a .PUB extension is your public key and the one you will use on DigitalOcean.**  The other id_rsa file is your private key and should be kept private.*
 
 4. Back on DigitalOcean in your Droplet configuration click the *New SSH Key* button.  A box will appear for you to enter your public key and a name for your key.  Paste the contents from your id_rsa.pub file that you copied and give your key a title, then press Create SSH Key
 
@@ -97,6 +101,7 @@ A few things to take note of:
 *  Choosing One-Click-Install offers other stacks (MEAN, Django, etc)
 
 After your Droplet has been created, your Droplets page should look like this:
+
 ![Created Droplet](img/created_droplet.png)
 
 ## Connect To Your VPS
@@ -109,15 +114,15 @@ This IP Address can be entered into your web browser and you will be taken to yo
 
 This is the default page generated from when you set-up your Droplet with the LAMP stack.  This file can be edited in the same way that a local file that exist on your computer can be edited.  To edit it, however, you need to connect to your server via Git Bash (Or whatever Terminal application you use on your computer) to access the HTML file.  Here is where setting up your SSH key in the previous section will be of use:
 
-1.  Open Git Bash and enter the following: ```ssh root@your.ip.address.here```
+1.  Open Git Bash and enter the following: ```ssh root@your.ip.address```
 
     Because you set up an SSH Key pair, your private key will be used to identify you through the use of the public key that exist on your VPS.  No login password is required.
 
 2.  Once you have confirmed that you can login via SSH, you may want to disable the login via password option.  The steps for doing so can be found at [Step Six](https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets#step-six%E2%80%94lockdown-root-ssh-access-to-keys-only) from the DigitalOcean guide I linked to earlier
 
-Now that you are logged into your server, it is no different than being in a directory locally.  Using the ```pwd`` command, you can see that by default you are at the /root location.  The HTML file that displays the content on your website is located at **/var/www/html** and although you could navigate to this location and edit the HTML file with Vim, there is another option to make this process easier.
+Now that you are logged into your server, it is no different than being in a directory locally.  Using the ```pwd``` command, you can see that by default you are at the /root location.  The HTML file that displays the content on your website is located at **/var/www/html** and although you could navigate to this location and edit the HTML file with Vim, there is another option to make this process easier.
 
-## Connect via SFTP and WinSCP
+## Transfer files using SFTP
 
 Through the use of the Secure File Transfer Protocol (SFTP), files can be uploaded to your server using the same SSH process you use to connect to your server from the Terminal.
 
@@ -127,7 +132,7 @@ There are several applications available that offer a GUI interface for connecti
 
 Since I am on a Windows machine I will be using [WinSCP](https://winscp.net/eng/download.php).  Another popular SFTP client for Mac and Windows is [FileZilla](https://filezilla-project.org/)
 
-1.  After downloading and installing WinSCP, open the file.  A prompt should open up asking for you to login.  Enter the following credentials to get started:
+1.  After downloading and installing WinSCP, open the application.  A prompt should open up asking for you to login.  Enter the following credentials to get started:
 
     *  For **Host name** enter the IP Address of your Droplet/VPS
     *  Keep the port number at its default (22)
@@ -147,21 +152,33 @@ Since I am on a Windows machine I will be using [WinSCP](https://winscp.net/eng/
 
     Then, upload your private key file (the id_rsa file that doesn't have a file association).  When doing so, a prompt will come up asking if you want to convert your private key into .ppk format.  Click yes and, after your file is converted, it will be inserted into the **Private key file** field.
 
-4.  After your credentials and private key have been entered, click the **login** button.
+4.  After your credentials and private key have been entered, click ok then click the **login** button.  If a prompt displays asking you if you trust the host you are connecting to, click Yes to continue with the login process. 
 
-You are now connected to your server via SFTP.
+You are now connected to your server using SSH and any files you upload will be transferred using the SFTP protocol.
 
 ---
 
-As when connecting to your VPS using SSH, you start off at the root directory.  This is shown on the right side window of the WinSCP application.  There is nothing in the root directory, so no files should be displayed.  Let's edit the default HTML page before uploading our own files:
+As when connecting to your VPS using SSH, you start off at the root directory.  This is shown on the right side window of the WinSCP application.  There is nothing in the root directory, so no files should be displayed.  The left side (in the blue box in the image below) is your local directory.
+
+![winscp initial](img/winscp_initial.png)
+
+Let's edit the default HTML page before uploading our own files:
 
 1.  Double click the folder in the root directory to be taken to the parent directory and navigate to /var/www/html
 
-2.  The default files created when creating your Droplet are displayed here.  A best practice for security reasons is to remove the **info.php** file.  Delete the file.
+2.  The default files created when creating your Droplet are displayed here.  A best practice for security reasons is to remove the **info.php** file.  Delete the file by right clicking it and clicking Delete.
 
-3.  By right clicking the index.html file and hovering over the *Edit* option, you can configure which editor you want to use to open the file.  If you prefer, you can open it with the internal (default) editor.  Here you will see the contents that make up the default page you saw earlier when you entered the IP address of your web site.
+    ![delete php info](img/delete_php_info.png)
 
-4.  You can delete this file or upload your own here.
+3.  By right clicking the index.html file and hovering over the *Edit* option, you can configure which editor you want to use to edit files located on your VPS.  If you prefer, you can open it with the internal (default) editor as well.
+
+    ![configure editor](img/configure_editor.png)
+
+    *As you can see, I already have Phpstorm and Code (Visual Studio Code) as editors to open files on my VPS.  You can add any editor you use by locating its executable and placing it in the **External Editor** field*
+
+    ![add editor](img/add_editor.png)
+
+4.  Once your editor is configured you can right click the HTML file, open it and edit it.  Any changes you save will be reflected on your live site.
 
 I am going to delete the default HTML file so I have an empty directory to work with when uploading my PHP site.
 
@@ -169,20 +186,25 @@ I am going to delete the default HTML file so I have an empty directory to work 
 
 *This section covers something I found useful the first time I deployed my application: [What is the correct folder to put my website files](https://www.digitalocean.com/community/questions/what-is-the-correct-folder-to-put-my-website-files-var-www-or-var-www-html)*
 
-By default, HTML and PHP files are placed in the ```/var/www/html``` directory but this can be changed by editing the *000-default.conf* file located at ```/etc/apache2/sites-enabled/```.  You may want to do this to host multiple sites, which would require a different file structure (When I learn how to do this, I will update this readme with how to host multiple sties on one Droplet).
+*For a more comprehensive guide see the official documentation [How To Move an Apache Web Root to a New Location on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-move-an-apache-web-root-to-a-new-location-on-ubuntu-16-04)*
 
-To change the default file location, open the *000-default.conf* file and, where it says ```DocumentRoot /var/www/html``` change it to the name of your application (or anything you'd like):
+By default, HTML and PHP files are placed in the ```/var/www/html``` directory but this can be changed by editing the *000-default.conf* file located at ```/etc/apache2/sites-enabled/```.  You may want to do this to host multiple sites on your Droplet, which would require a different file structure.
+
+To change the default file location, open the *000-default.conf* file and, where it says ```DocumentRoot /var/www/html``` change it to the name of your application (or anything you'd like).  You will also want to update any other references to your new file location.  Below is a before and after of what your *000-default.conf* file should look lke:
+
+**BEFORE**      
+![apache configuration before](img/apache_conf_before.png)
+
+**AFTER**     
+![apache configuration before](img/apache_conf_after.png) 
+
+
+**Keep in mind that this will be the directory you make to replace the default html folder in your ```/var/www/``` directory**
+
+Make sure to save the file then reload Apache for the changes to take effect
 
 ```
-DocumentRoot /var/www/myapp
-```
-
-**Keep in mind that this will be the folder you make to replace the html folder that was deleted in the previous section**
-
-Save the file, exit the application.  It's recommended to restart the server after making these changes.  You can do so by logging into your server from your Terminal then entering the following command:
-
-```
-service apache2 restart
+sudo systemctl reload apache2
 ```
 
 ## Uploading the PHP Site

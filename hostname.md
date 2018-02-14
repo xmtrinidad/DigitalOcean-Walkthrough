@@ -109,6 +109,11 @@ Once these records have been created, your DNS records table on DigitalOcean sho
 ![new dns records](img/new_dns_records.png)
 
 
+---
+
+With your Domain and DNS Records set, you can now visit your website by typing in your domain name in your web browser.  If you don't see your website, it could be that the changes to the nameservers haven't propagated yet.  It could take up to 24 hours for the changes to take effect.
+
+
 
 
 
