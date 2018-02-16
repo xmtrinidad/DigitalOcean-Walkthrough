@@ -1,6 +1,6 @@
 # DigitalOcean-Walkthrough
 
-A tutorial for turning a local PHP/MySQL application to a live site using DigitalOcean 
+A tutorial for turning a local PHP/MySQL application to a live site using DigitalOcean
 
 **Get Started Here**:  [Uploading a PHP Website](https://github.com/xmtrinidad/DigitalOcean-Walkthrough/blob/master/uploadphpsite.md)
 
@@ -21,3 +21,12 @@ My intent for wanting to deploy my site wasn't to sell a product, but instead to
 As of 2/14, I have updated this repo so that any static site or PHP site can be uploaded, but there are still many things I haven't covered.  One of them being, how to use HTTPs with DigitalOcean for better site security.  As I get more experience implementing more security measures, I will update this repo to demonstrate how to implement it for your own site.
 
 This repo does not cover best practices for securing your PHP code.  Before deploying your site, you should ensure that database queries are properly prepared and any insertions made are properly escaped. 
+
+**Update 2/16**     
+
+I have configured the [demo site](https://xmtphp-note.bid) to use HTTPs.  I also configured my server for better security and set up a basic firewall.
+
+I would recommend following the following guides from DigitalOcean if you want to implement these features in your own projects:
+
+[Initial Server Setup with Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04)
+[How To Secure Apache with Let's Encrypt on Ubuntu 16.04 ](https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-16-04)
